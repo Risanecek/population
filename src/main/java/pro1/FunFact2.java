@@ -8,7 +8,12 @@ public class FunFact2 {
     /**
      * @return TODO: Celkový počet obyvatel ve všech obcích
      */
-    public static int getFunFact(List<Muni> data) {
-        return 0;
+    public static long getFunFact(List<Muni> data) {
+        var result = data
+                .stream()
+                .mapToLong(m -> m.getPopulation())
+                .sum();
+
+        return result;
     }
 }
