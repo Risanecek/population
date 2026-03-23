@@ -16,14 +16,13 @@ public class TestDataUtils {
         var districts = getDistricts();
         ArrayList<Muni> result = new ArrayList<>();
         try {
-            URL resourceUrl = TestDataUtils.class.getClassLoader().getResource("obce.csv");
-            var lines = Files.readAllLines(Paths.get(resourceUrl.toURI()));
+            var lines = Files.readAllLines(Paths.get("src","test","resources","obce.csv"));
             lines.stream().skip(1).forEach(line->{
                 var split = line.split(",");
                 var districtName = districts.get(split[0]);
                 result.add(new Muni(split[2], split[1], districtName, split[0], Integer.parseInt(split[3]), Integer.parseInt(split[4]), Integer.parseInt(split[5]), Double.parseDouble(split[6]), Double.parseDouble(split[7]), Double.parseDouble(split[8])));
             });
-        } catch (IOException | URISyntaxException e) {
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
         return result;
@@ -32,13 +31,12 @@ public class TestDataUtils {
     private static HashMap<String,String> getDistricts(){
         var result = new HashMap<String,String>();
         try {
-            URL resourceUrl = TestDataUtils.class.getClassLoader().getResource("okresy.csv");
-            var lines = Files.readAllLines(Paths.get(resourceUrl.toURI()));
+            var lines = Files.readAllLines(Paths.get("src","test","resources","okresy.csv"));
             lines.stream().skip(1).forEach(line->{
                 var split = line.split(",");
                 result.put(split[2],split[1]);
             });
-        } catch (IOException | URISyntaxException e) {
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
         return result;
